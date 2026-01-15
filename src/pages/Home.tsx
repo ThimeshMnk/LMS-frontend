@@ -54,11 +54,11 @@ export default function Home() {
                 key={course.id}
                 id={course.id}
                 title={course.title}
-                category="Professional Track" // You can also fetch this from DB
+                category="Professional Track" 
                 image={course.thumbnail}
                 duration={`${course.lectures_count} Lectures`}
                 rating={5.0}
-                reviews={Math.floor(Math.random() * 50) + 10} // Just for demo style
+                reviews={Math.floor(Math.random() * 50) + 10} 
                 price="FREE"
               />
             ))}

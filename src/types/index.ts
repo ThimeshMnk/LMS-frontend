@@ -1,4 +1,5 @@
 export interface Lecture {
+  course_id: any;
   id: number;
   title: string;
   duration: string;
