@@ -6,12 +6,9 @@ import {
   Clock,
   PlayCircle,
   Globe,
-  Award,
-  CheckCircle,
   ChevronRight,
   Share2,
   ShieldCheck,
-  Star,
   User,
 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
@@ -138,7 +135,7 @@ export default function CourseDetail() {
                     {course.lectures?.map((lecture, index) => (
                       <Link
                         key={lecture.id}
-                        to={`/watch/${lecture.id}`} // Clicking this triggers the check
+                        to={`/watch/${lecture.id}`} 
                         className="group flex items-center justify-between p-6 bg-white rounded-3xl border border-slate-100 hover:border-indigo-600/20 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300"
                       >
                         <div className="flex items-center gap-5">

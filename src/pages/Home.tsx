@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import CourseCard from "../components/CourseCard";
 import { ChevronRight } from "lucide-react";
 import type { Course, ApiResponse } from "../types";
+import { CourseCardSkeleton, Skeleton } from "../components/ui/Skeleton";
 
 export default function Home() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -20,8 +21,23 @@ export default function Home() {
       .catch((err) => console.error(err));
   }, []);
 
-  if (loading)
-    return <div className="p-20 text-center">Loading Experiences...</div>;
+if (loading)
+  return (
+    <div className="min-h-screen bg-white">
+      <Hero />
+      <main className="max-w-7xl mx-auto px-4 py-16">
+        <div className="mb-8 space-y-2">
+          <Skeleton className="h-10 w-64" />
+          <Skeleton className="h-4 w-96" />
+        </div>
+        <div className="flex gap-6 overflow-hidden">
+          {[1, 2, 3, 4].map((i) => (
+            <CourseCardSkeleton key={i} />
+          ))}
+        </div>
+      </main>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white">

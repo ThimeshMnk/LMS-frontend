@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../api/axios";
 import type { Lecture, ApiResponse, Question, QuizResult } from "../types";
-import ReactPlayer from "react-player";
-import { ChevronLeft, MessageSquare, GraduationCap } from "lucide-react";
+import { ChevronLeft, MessageSquare, GraduationCap, ListVideo } from "lucide-react";
+import { Skeleton } from "../components/ui/Skeleton";
 
 export default function Watch() {
   const { lectureId } = useParams();
@@ -12,8 +12,6 @@ export default function Watch() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [quizStarted, setQuizStarted] = useState(false);
 
-  // Casting to 'any' to bypass strict TS definitions for ReactPlayer in Vite
-  const Player = ReactPlayer as any;
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<
@@ -28,14 +26,46 @@ export default function Watch() {
       .catch((err) => console.error("API Error:", err));
   }, [lectureId]);
 
-  if (!lecture)
-    return (
-      <div className="h-screen bg-slate-950 flex items-center justify-center text-white">
-        <div className="animate-pulse font-bold tracking-widest uppercase text-xs">
-          Entering Lecture Hall...
+if (!lecture)
+  return (
+    <div className="min-h-screen bg-[#0a0a0c] flex flex-col">
+      {/* Skeleton Top Nav */}
+      <div className="h-16 border-b border-white/5 flex items-center px-6 gap-4">
+        <Skeleton className="h-10 w-10 rounded-full bg-white/5" />
+        <div className="space-y-2">
+          <Skeleton className="h-2 w-20 bg-white/5" />
+          <Skeleton className="h-4 w-48 bg-white/5" />
         </div>
       </div>
-    );
+
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        {/* Left: Video Skeleton */}
+        <div className="flex-1 bg-black">
+          <div className="w-full aspect-video bg-white/5 animate-pulse flex items-center justify-center">
+             <ListVideo className="w-12 h-12 text-white/10" />
+          </div>
+          <div className="p-10 space-y-6">
+            <Skeleton className="h-10 w-1/3 bg-white/5" />
+            <div className="space-y-3">
+              <Skeleton className="h-4 w-full bg-white/5" />
+              <Skeleton className="h-4 w-full bg-white/5" />
+              <Skeleton className="h-4 w-2/3 bg-white/5" />
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Sidebar Skeleton */}
+        <div className="w-full lg:w-100 bg-[#0e0e11] border-l border-white/5 p-8 space-y-8">
+           <div className="flex gap-4 border-b border-white/5 pb-6">
+              <Skeleton className="h-8 flex-1 bg-white/5" />
+              <Skeleton className="h-8 flex-1 bg-white/5" />
+           </div>
+           <Skeleton className="h-32 w-full bg-white/5 rounded-2xl" />
+           <Skeleton className="h-12 w-full bg-white/5 rounded-xl" />
+        </div>
+      </div>
+    </div>
+  );
 
   const startQuiz = async () => {
     try {

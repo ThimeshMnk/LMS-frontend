@@ -1,4 +1,4 @@
-import { Star, Clock, Heart, ChevronRight } from 'lucide-react';
+import { Star, Clock, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface CourseCardProps {
@@ -21,7 +21,6 @@ export default function CourseCard({
   duration, 
   rating, 
   reviews, 
-  price, 
   isSale 
 }: CourseCardProps) {
   return (
